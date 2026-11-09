@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siddharth Sharma</title>
+<meta name="description" content="Siddharth Sharma - B.Tech CSE (IoT) at Manipal University Jaipur. Algorithmic trading systems, full-stack products and quant research.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-row">
+    <a class="brand" href="#">Siddharth Sharma</a>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#research">Research</a>
+      <a href="#stellar">Stellar Capital</a>
+      <a href="#contact">Contact</a>
+      <button class="theme" id="themeBtn" type="button" aria-label="Toggle dark mode">◐</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <p class="eyebrow">B.Tech CSE (IoT) · Manipal University Jaipur · 2024–2028</p>
+    <h1>I build trading systems and the software around them.</h1>
+    <p class="lede">I run my own live, multi-strategy trading setup on a Linux server I manage myself, across Indian equities,
+      crypto and gold. I also build web and mobile products end to end in Next.js, React Native and Python.</p>
+    <div class="cta">
+      <a class="btn primary" href="Siddharth_Sharma_Resume.pdf" download>Download résumé</a>
+      <a class="btn" href="https://github.com/Siddharth5506" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
+
+  <section id="projects" class="wrap block">
+    <h2>Projects</h2>
+    <div class="grid">
+      <article class="card">
+        <div class="card-head"><h3>Stellar Capital</h3><span class="chip live">Live</span></div>
+        <p class="kind">Algorithmic trading platform</p>
+        <p>One control panel over all my trading accounts. It monitors the live bots, enforces risk limits, keeps a trade journal,
+          sends a weekly review PDF and includes an AI coach. Every strategy change is backtested on point-in-time data before it goes live.</p>
+        <p class="stack">Python · Linux VPS · systemd · Groww &amp; Delta Exchange APIs</p>
+        <a class="more" href="#stellar">See the strategies ↓</a>
+      </article>
+
+      <article class="card">
+        <div class="card-head"><h3>India Whales</h3><span class="chip soon">Public site soon</span></div>
+        <p class="kind">Unusual options activity tracker for NSE</p>
+        <p>Spots large single-buyer bursts in real time across about 750 stock option contracts, using the Groww tick feed.
+          It also tracks bulk and block deals, SEBI insider buys, short sales and delivery spikes. Each alert is graded five days later.
+          The public version will add sector views and a swing strategy built on market strength.</p>
+        <p class="stack">Python · live tick feed · web app</p>
+      </article>
+
+      <article class="card">
+        <div class="card-head"><h3>Joytish IQ</h3><span class="chip soon">Public site soon</span></div>
+        <p class="kind">Vedic astrology engine and dashboard</p>
+        <p>Computes planet positions from NASA JPL's DE421 ephemeris, with a hand-built Lahiri ayanamsa that matches PyEphem within 22 arc-seconds.
+          It also calculates dashas, yogas, ashtakavarga and a life timeline. In the public version, anyone can enter their date of birth and get their full chart.</p>
+        <p class="stack">Python · Skyfield · Next.js 16 · Recharts</p>
+      </article>
+
+      <article class="card">
+        <div class="card-head"><h3>Poolmate</h3><span class="chip done">Built</span></div>
+        <p class="kind">Ride-pooling platform</p>
+        <p>A rider web app with seat and full-cab booking, live maps, in-app chat, support tickets and an admin panel,
+          plus a separate React Native driver app.</p>
+        <p class="stack">Next.js 15 · React · Supabase · Leaflet · Expo</p>
+      </article>
+
+      <article class="card">
+        <div class="card-head"><h3>Options Manager</h3><span class="chip done">Built</span></div>
+        <p class="kind">Index options analyser</p>
+        <p>A Black-Scholes pricing engine for Nifty and Bank Nifty options. It checks whether a trade is feasible and ranks
+          option strategies by risk and reward.</p>
+        <p class="stack">Python</p>
+      </article>
+    </div>
+
+    <h3 class="sub">In progress</h3>
+    <ul class="plain">
+      <li><b>Study AI</b>: an AI tutor that teaches from uploaded course files, with voice you can interrupt and resume. <span class="stack">Next.js 16 · SQLite FTS5 · LLM adapters</span></li>
+      <li><b>Tars</b>: an AI-integrated hardware desk robot.</li>
+      <li><b>PropertyDheko</b>: a housing marketplace for buyers, sellers and renters. <span class="stack">Next.js · Supabase</span></li>
+    </ul>
+  </section>
+
+  <section id="research" class="wrap block">
+    <h2>Research</h2>
+    <article class="card wide">
+      <div class="card-head"><h3>Momentum in Indian Equities, 1997–2026</h3><span class="chip soon">SSRN submission planned</span></div>
+      <p class="kind">Student paper · Manipal University Jaipur</p>
+      <p>Does buying last year's winners work on the NSE? I tested it with point-in-time data, so no survivorship bias.
+        Classic 12-1 momentum returned about 23% a year after brokerage fees and tax, but had deep crashes.
+        Simple trend filters cut the crash drawdown roughly in half. A low-drawdown variant (the top 10 Nifty 200 stocks near their 52-week high)
+        returned 24.4% a year with a maximum drawdown of −28%.</p>
+    </article>
+  </section>
+
+  <section id="stellar" class="block stellar">
+    <div class="wrap">
+      <h2>Stellar Capital</h2>
+      <p class="lede small">These are the strategy books I run with real money. Each card shows the name, asset class and equity curve.
+        The rules stay private. <b>Live</b> shows real results since I started with real capital on 9 November 2026.
+        <b>Backtest</b> shows the historical simulation, including fees and slippage, on a log scale.</p>
+
+      <div class="seg" role="tablist" aria-label="Curve type">
+        <button type="button" role="tab" data-mode="live" aria-selected="true">Live · since 9 Nov 2026</button>
+        <button type="button" role="tab" data-mode="bt" aria-selected="false">Backtest</button>
+      </div>
+
+      <figure class="index-fig">
+        <figcaption>
+          <span class="fig-title">Stellar Capital Index</span>
+          <span class="fig-sub" id="indexSub"></span>
+        </figcaption>
+        <div class="chart big" data-key="index" role="img" aria-label="Stellar Capital Index equity curve, backtest, log scale"></div>
+      </figure>
+
+      <div class="grid strat" id="stratGrid"></div>
+
+      <p class="disclaimer">Personal research only. This is not investment advice and not an offer to manage money.
+        Backtests use historical data and can differ a lot from live results. Past performance does not guarantee future returns.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="wrap block">
+    <h2>Contact</h2>
+    <p class="contact-line">
+      <a href="mailto:siddharth55kanpur@gmail.com">siddharth55kanpur@gmail.com</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://github.com/Siddharth5506" target="_blank" rel="noopener">github.com/Siddharth5506</a>
+    </p>
+  </section>
+</main>
+
+<footer class="wrap foot">© 2026 Siddharth Sharma</footer>
+
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+<script src="data/curves.js"></script>
+<script src="data/live.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
