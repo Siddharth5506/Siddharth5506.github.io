@@ -17,12 +17,12 @@
   const STRATS = [
     { key: 'stellar_india', live: 'stellar_india', name: 'Stellar India', asset: 'Indian equities (NSE)', status: 'Live' },
     { key: 'indmoney', live: 'indmoney', name: 'US Stocks', asset: 'US equities · INDmoney', status: 'Live', noBt: 'Discretionary account · no backtest' },
+    { key: 'manual', live: 'manual', name: 'Manual Trading', asset: 'Indian stocks & options · Groww now, Dhan scalping next', status: 'Manual',
+      noBt: 'Discretionary trading · no backtest', liveLabel: 'Gain on capital used, since ' },
     { key: 'combo_flow', live: 'combo_flow', name: 'Stellar Combo Flow', asset: 'Crypto + gold perpetual futures', status: 'Live' },
     { key: 'crypto_flow', live: null, name: 'Stellar Crypto Flow', asset: 'Crypto perpetual futures', status: 'Live', note: 'inside Combo Flow' },
     { key: 'gold_flow', live: null, name: 'Stellar Gold Flow', asset: 'Gold (XAUT) perpetual futures', status: 'Live', note: 'inside Combo Flow' },
     { key: 'gamma', live: 'gamma', name: 'Gamma Reactor', asset: 'Nifty / Bank Nifty options', status: 'Paper' },
-    { key: 'manual', live: null, name: 'Manual Trading', asset: 'Indian equities scalping · Dhan', status: 'Soon',
-      noBt: 'Discretionary account · no backtest', liveMsg: ['Starting soon', 'The curve appears once the account goes live'] },
   ];
   const grid = document.getElementById('stratGrid');
   const yr = d => d.slice(0, 4);
@@ -59,12 +59,13 @@
       const c = BT[s.key];
       if (mode === 'bt') el.textContent = c ? 'Backtest ' + yr(c.start) + '–' + yr(c.end) : 'No backtest';
       else if (s.liveMsg) el.textContent = 'Not started yet';
+      else if (s.liveLabel) el.textContent = s.liveLabel + fmtD(LIVE[s.live].start);
       else el.textContent = s.live ? (s.status === 'Paper' ? 'Paper trading' : 'Live') + ' since ' + fmtD(LIVE[s.live].start)
                                    : 'Live as part of Stellar Combo Flow';
     });
     document.getElementById('indexSub').textContent = mode === 'bt'
       ? '50/50 blend of Stellar India and Stellar Combo Flow, rebalanced daily · backtest 2016–2026'
-      : 'All real-money accounts together (Stellar India, US Stocks, Stellar Combo Flow), deposits and withdrawals excluded · live since '
+      : 'All real-money accounts together (Stellar India, Manual Trading, US Stocks, Stellar Combo Flow), deposits and withdrawals excluded · live since '
         + fmtD(LIVE.index.start) + (LIVE._updated ? ' · updated ' + LIVE._updated : '');
     document.querySelectorAll('.chart').forEach(b => b.setAttribute('aria-label',
       (b.closest('.card') ? b.closest('.card').querySelector('h3').textContent : 'Stellar Capital Index') +
