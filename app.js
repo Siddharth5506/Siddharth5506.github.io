@@ -16,10 +16,13 @@
   // ---- strategy cards. live: key in LIVE, or null when the book is tracked inside another one
   const STRATS = [
     { key: 'stellar_india', live: 'stellar_india', name: 'Stellar India', asset: 'Indian equities (NSE)', status: 'Live' },
+    { key: 'indmoney', live: 'indmoney', name: 'US Stocks', asset: 'US equities · INDmoney', status: 'Live', noBt: 'Discretionary account · no backtest' },
     { key: 'combo_flow', live: 'combo_flow', name: 'Stellar Combo Flow', asset: 'Crypto + gold perpetual futures', status: 'Live' },
     { key: 'crypto_flow', live: null, name: 'Stellar Crypto Flow', asset: 'Crypto perpetual futures', status: 'Live', note: 'inside Combo Flow' },
     { key: 'gold_flow', live: null, name: 'Stellar Gold Flow', asset: 'Gold (XAUT) perpetual futures', status: 'Live', note: 'inside Combo Flow' },
     { key: 'gamma', live: 'gamma', name: 'Gamma Reactor', asset: 'Nifty / Bank Nifty options', status: 'Paper' },
+    { key: 'manual', live: null, name: 'Manual Trading', asset: 'Indian equities scalping · Dhan', status: 'Soon',
+      noBt: 'Discretionary account · no backtest', liveMsg: ['Starting soon', 'The curve appears once the account goes live'] },
   ];
   const grid = document.getElementById('stratGrid');
   const yr = d => d.slice(0, 4);
@@ -34,7 +37,7 @@
     const head = document.createElement('div'); head.className = 'card-head';
     const h = document.createElement('h3'); h.textContent = s.name;
     const chip = document.createElement('span');
-    chip.className = 'chip ' + (s.status === 'Live' ? 'live' : 'paper'); chip.textContent = s.status;
+    chip.className = 'chip ' + (s.status === 'Live' ? 'live' : s.status === 'Paper' ? 'paper' : ''); chip.textContent = s.status;
     head.append(h, chip);
     const a = document.createElement('p'); a.className = 'asset';
     a.textContent = s.asset + (s.note ? ' · ' + s.note : '');
@@ -42,6 +45,8 @@
     spans.push({ el: span, s });
     const ch = document.createElement('div'); ch.className = 'chart';
     ch.dataset.key = s.key; ch.dataset.live = s.live || '';
+    if (s.noBt) ch.dataset.nobt = s.noBt;
+    if (s.liveMsg) { ch.dataset.lm1 = s.liveMsg[0]; ch.dataset.lm2 = s.liveMsg[1]; }
     ch.setAttribute('role', 'img');
     card.append(head, a, span, ch);
     grid.appendChild(card);
@@ -51,14 +56,16 @@
 
   function labels() {
     spans.forEach(({ el, s }) => {
-      if (mode === 'bt') { const c = BT[s.key]; el.textContent = 'Backtest ' + yr(c.start) + '–' + yr(c.end); }
+      const c = BT[s.key];
+      if (mode === 'bt') el.textContent = c ? 'Backtest ' + yr(c.start) + '–' + yr(c.end) : 'No backtest';
+      else if (s.liveMsg) el.textContent = 'Not started yet';
       else el.textContent = s.live ? (s.status === 'Paper' ? 'Paper trading' : 'Live') + ' since ' + fmtD(LIVE[s.live].start)
                                    : 'Live as part of Stellar Combo Flow';
     });
     document.getElementById('indexSub').textContent = mode === 'bt'
-      ? '50/50 blend of the two live accounts (Stellar India and Stellar Combo Flow), rebalanced daily · backtest 2016–2026'
-      : '50/50 blend of the two live accounts (Stellar India and Stellar Combo Flow) · live since ' + fmtD(LIVE.index.start)
-        + (LIVE._updated ? ' · updated ' + LIVE._updated : '');
+      ? '50/50 blend of Stellar India and Stellar Combo Flow, rebalanced daily · backtest 2016–2026'
+      : 'All real-money accounts together (Stellar India, US Stocks, Stellar Combo Flow), deposits and withdrawals excluded · live since '
+        + fmtD(LIVE.index.start) + (LIVE._updated ? ' · updated ' + LIVE._updated : '');
     document.querySelectorAll('.chart').forEach(b => b.setAttribute('aria-label',
       (b.closest('.card') ? b.closest('.card').querySelector('h3').textContent : 'Stellar Capital Index') +
       (mode === 'bt' ? ' equity curve, backtest, log scale' : ' equity curve, live, percent return')));
@@ -158,7 +165,9 @@
 
   function draw(box) {
     if (!box.clientWidth) return;
-    if (mode === 'bt') return plot(box, BT[box.dataset.key], true);
+    if (mode === 'bt') return BT[box.dataset.key] ? plot(box, BT[box.dataset.key], true)
+                                                  : message(box, box.dataset.nobt || 'No backtest', '');
+    if (box.dataset.lm1) return message(box, box.dataset.lm1, box.dataset.lm2);
     const lk = box.dataset.live;
     if (!lk) return message(box, 'Trades inside Stellar Combo Flow', 'See the Combo Flow curve for live results');
     const c = LIVE[lk];
