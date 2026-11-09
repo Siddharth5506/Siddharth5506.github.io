@@ -106,27 +106,25 @@
   <section id="stellar" class="block stellar">
     <div class="wrap">
       <h2>Stellar Capital</h2>
-      <p class="lede small">These are the accounts and strategy books I trade with real money. Each card shows the name, asset class and equity curve.
-        The rules stay private. <b>Live</b> shows real results since my capital started on 1 October 2026, with deposits and withdrawals taken out.
-        <b>Backtest</b> shows the historical simulation, including fees and slippage, on a log scale.</p>
-
-      <div class="seg" role="tablist" aria-label="Curve type">
-        <button type="button" role="tab" data-mode="live" aria-selected="true">Live · since 1 Oct 2026</button>
-        <button type="button" role="tab" data-mode="bt" aria-selected="false">Backtest</button>
-      </div>
+      <p class="lede small">Every strategy I run, with real money and on paper. Everything is shown in % since it started:
+        no amounts, and deposits and withdrawals are taken out. The rules stay private.</p>
 
       <figure class="index-fig">
         <figcaption>
-          <span class="fig-title">Stellar Capital Index</span>
+          <div class="fig-row"><span class="fig-title">Stellar Capital Index</span><span class="big-ret" id="indexRet"></span></div>
           <span class="fig-sub" id="indexSub"></span>
         </figcaption>
-        <div class="chart big" data-key="index" role="img" aria-label="Stellar Capital Index equity curve, backtest, log scale"></div>
+        <div class="chart big" data-key="index" role="img" aria-label="Stellar Capital Index, percent return since 1 October 2026"></div>
       </figure>
 
-      <div class="grid strat" id="stratGrid"></div>
+      <h3 class="group">Real money</h3>
+      <div class="grid strat" id="realGrid"></div>
+
+      <h3 class="group">Paper trading</h3>
+      <div class="grid strat" id="paperGrid"></div>
 
       <p class="disclaimer">Personal research only. This is not investment advice and not an offer to manage money.
-        Backtests use historical data and can differ a lot from live results. Past performance does not guarantee future returns.</p>
+        Paper results are simulated and can differ from real fills. Past performance does not guarantee future returns.</p>
     </div>
   </section>
 
@@ -143,7 +141,6 @@
 <footer class="wrap foot">© 2026 Siddharth Sharma</footer>
 
 <div class="tip" id="tip" role="status" aria-live="polite"></div>
-<script src="data/curves.js"></script>
 <script src="data/live.js"></script>
 <script src="app.js"></script>
 </body>
